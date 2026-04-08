@@ -1,0 +1,10 @@
+version: 1.2
+workflows:
+   - name: "NewAnalysis"
+     subclass: WDL
+     primaryDescriptorPath: /cpd_analysis_pipeline.wdl
+     filters:  # Only develop or master branches and localAligner/** tags
+         branches:
+             - main
+         tags:
+             - /.*/
