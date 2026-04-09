@@ -422,7 +422,7 @@ task cellprofiler_pipeline_task {
 
 
 
-    PLUG_URL="https://raw.githubusercontent.com/CellProfiler/CellProfiler-plugins/master/active_plugins/runcellpose.py"
+    PLUG_URL="https://raw.githubusercontent.com/broadinstitute/OPS_NewAnalysis/refs/heads/main/cp_plugin/runcellpose.py"
     PLUG_DIR="$(pwd)/cp_plugins"
     PLUG_PATH="${PLUG_DIR}/runcellpose.py"
 
@@ -430,31 +430,6 @@ task cellprofiler_pipeline_task {
     if ! curl -L --fail -o "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
         if ! wget -qO "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
             echo "ERROR: Could not download runcellpose.py from $PLUG_URL" >&2
-            exit 1
-        fi
-    fi
-
-    #install callBarcodes
-    PLUG_URL="https://raw.githubusercontent.com/CellProfiler/CellProfiler-plugins/refs/heads/master/active_plugins/callbarcodes.py"
-    PLUG_PATH="${PLUG_DIR}/callbarcodes.py"
-
-    mkdir -p "${PLUG_DIR}"
-    if ! curl -L --fail -o "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
-        if ! wget -qO "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
-            echo "ERROR: Could not download callbarcodes.py from $PLUG_URL" >&2
-            exit 1
-        fi
-    fi
-
-
-    #install compensate colors
-    PLUG_URL="https://raw.githubusercontent.com/CellProfiler/CellProfiler-plugins/refs/heads/master/active_plugins/compensatecolors.py"
-    PLUG_PATH="${PLUG_DIR}/compensatecolors.py"
-
-    mkdir -p "${PLUG_DIR}"
-    if ! curl -L --fail -o "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
-        if ! wget -qO "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
-            echo "ERROR: Could not download compensatecolors.py from $PLUG_URL" >&2
             exit 1
         fi
     fi
@@ -472,6 +447,31 @@ task cellprofiler_pipeline_task {
         sys.exit(1)
     PY
     
+
+   
+    PLUG_URL="https://raw.githubusercontent.com/broadinstitute/OPS_NewAnalysis/refs/heads/main/cp_plugin/callbarcodes.py"
+    PLUG_PATH="${PLUG_DIR}/callbarcodes.py"
+
+    if ! curl -L --fail -o "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
+        if ! wget -qO "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
+            echo "ERROR: Could not download callbarcodes.py from $PLUG_URL" >&2
+            exit 1
+        fi
+    fi
+
+
+    
+    PLUG_URL="https://raw.githubusercontent.com/broadinstitute/OPS_NewAnalysis/refs/heads/main/cp_plugin/compensatecolors.py"
+    PLUG_PATH="${PLUG_DIR}/compensatecolors.py"
+
+    if ! curl -L --fail -o "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
+        if ! wget -qO "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
+            echo "ERROR: Could not download compensatecolors.py from $PLUG_URL" >&2
+            exit 1
+        fi
+    fi
+
+
 
 
 
