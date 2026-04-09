@@ -433,6 +433,7 @@ task cellprofiler_pipeline_task {
             exit 1
         fi
     fi
+    echo "runcellpose installed"
 
     python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu "torch==2.4.1"
     python3 -m pip install --no-cache-dir "cellpose==2.3.2"
@@ -458,6 +459,8 @@ task cellprofiler_pipeline_task {
             exit 1
         fi
     fi
+    echo "callBarcodes installed"
+
 
 
     
@@ -470,6 +473,8 @@ task cellprofiler_pipeline_task {
             exit 1
         fi
     fi
+    echo "compensatecolors installed"
+
 
 
 
