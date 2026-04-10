@@ -513,7 +513,7 @@ No other channel formats are available at this time, though you are free to open
 
         objectcount = len(
             measurements.get_current_measurement(
-                self.input_object_name.value, listofmeasurements[0]
+                self.input_object_name.value, first_cycle_measures[0]
             )
         )
 
