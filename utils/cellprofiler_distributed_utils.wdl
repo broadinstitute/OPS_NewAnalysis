@@ -463,6 +463,19 @@ task cellprofiler_pipeline_task {
 
 
 
+    PLUG_URL="https://raw.githubusercontent.com/broadinstitute/OPS_NewAnalysis/refs/heads/main/cp_plugin/callbarcodes2.py"
+    PLUG_PATH="${PLUG_DIR}/callbarcodes2.py"
+
+    if ! curl -L --fail -o "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
+        if ! wget -qO "$PLUG_PATH" "$PLUG_URL" 2>/dev/null; then
+            echo "ERROR: Could not download callbarcodes2.py from $PLUG_URL" >&2
+            exit 1
+        fi
+    fi
+    echo "callBarcodes2 installed"
+
+
+
     
     PLUG_URL="https://raw.githubusercontent.com/broadinstitute/OPS_NewAnalysis/refs/heads/main/cp_plugin/compensatecolors.py"
     PLUG_PATH="${PLUG_DIR}/compensatecolors.py"
