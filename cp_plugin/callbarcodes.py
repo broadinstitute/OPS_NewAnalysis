@@ -379,7 +379,7 @@ Enter the sequence that represents barcoding reads of an empty vector""",
         measurements_for_calls = self.getallbarcodemeasurements(
             listofmeasurements, self.ncycles.value, self.cycle1measure.value
         )
-
+        first_cycle_measures = list(measurements_for_calls[1].keys())
         objectcount = len(
             measurements.get_current_measurement(
                 self.input_object_name.value, first_cycle_measures[0]
