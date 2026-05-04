@@ -496,7 +496,26 @@ task cellprofiler_pipeline_task {
 
 
 
-
+    (
+      while true; do
+        if [ -f /sys/fs/cgroup/memory.current ]; then
+          mem_bytes=$(cat /sys/fs/cgroup/memory.current)
+        elif [ -f /sys/fs/cgroup/memory/memory.usage_in_bytes ]; then
+          mem_bytes=$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes)
+        else
+          mem_bytes=$(awk '/MemTotal/ {total=$2} /MemAvailable/ {avail=$2} END {print (total-avail)*1024}' /proc/meminfo)
+        fi
+    
+        mem_mb=$((mem_bytes / 1024 / 1024))
+        echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') MEMORY_MB=${mem_mb}" >&2
+        sleep 5
+      done
+    ) &
+    
+    MEM_MONITOR_PID=$!
+    
+    # Make sure monitor stops when task exits
+    trap "kill ${MEM_MONITOR_PID} 2>/dev/null || true" EXIT
 
 
 
@@ -509,6 +528,10 @@ task cellprofiler_pipeline_task {
       -p ~{cppipe_file}  \
       -o output \
       -i "$csv_dir"
+
+    CP_EXIT_CODE=$?
+    kill ${MEM_MONITOR_PID} 2>/dev/null || true
+    exit ${CP_EXIT_CODE}
 
 
     # make the outputs into a tarball (hack to delocalize arbitrary outputs)
@@ -532,8 +555,8 @@ task cellprofiler_pipeline_task {
     docker: "${cellprofiler_docker_image}"
     bootDiskSizeGb: 20
     disks: "local-disk 500 HDD"
-    memory: "60G"
-    cpu: 16
+    memory: "30G"
+    cpu: 8
     preemptible: hardware_preemptible_tries
   }
 
