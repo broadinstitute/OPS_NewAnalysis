@@ -511,7 +511,7 @@ task cellprofiler_pipeline_task {
 
         mem_mb=$((mem_bytes / 1024 / 1024))
         echo "${timestamp} WDL_MEMORY_MB=${mem_mb}" >&2
-        sleep 5
+        sleep 60
       done
     ) &
 
@@ -552,8 +552,8 @@ task cellprofiler_pipeline_task {
     docker: "${cellprofiler_docker_image}"
     bootDiskSizeGb: 20
     disks: "local-disk 500 HDD"
-    memory: "30G"
-    cpu: 8
+    memory: "15G"
+    cpu: 4
     preemptible: hardware_preemptible_tries
   }
 
