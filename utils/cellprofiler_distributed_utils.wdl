@@ -531,8 +531,8 @@ task cellprofiler_pipeline_task {
     docker: "${cellprofiler_docker_image}"
     bootDiskSizeGb: 20
     disks: "local-disk 500 HDD"
-    memory: "30G"
-    cpu: 8
+    memory: "15G"
+    cpu: 4
     preemptible: hardware_preemptible_tries
   }
 
