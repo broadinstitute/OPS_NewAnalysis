@@ -435,16 +435,9 @@ task cellprofiler_pipeline_task {
     fi
     echo "runcellpose installed"
     
-    if ! python3 -m pip --version; then
-      apt-get update
-      apt-get install -y python3-pip
-    fi
-    
-    python3 -m pip install --upgrade pip setuptools wheel
-    
     python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu "torch==2.4.1"
     python3 -m pip install --no-cache-dir "cellpose==2.3.2"
-
+    
     python3 - <<'PY'
     try:
         import importlib.metadata as m
@@ -454,7 +447,7 @@ task cellprofiler_pipeline_task {
         print("ERROR: Cellpose not importable:", e, file=sys.stderr)
         sys.exit(1)
     PY
-    
+      
 
    
     PLUG_URL="https://raw.githubusercontent.com/broadinstitute/OPS_NewAnalysis/refs/heads/main/cp_plugin/callbarcodes.py"
